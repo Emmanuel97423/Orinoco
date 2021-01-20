@@ -1,7 +1,120 @@
-* {
+*::before,
+*::after {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+}
+
+h1 {
+  font-size: 5rem;
+  text-transform: uppercase;
+  color: black;
+  align-self: center;
+  margin: 80px 10px;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.container {
+  width: 100%;
+  max-width: 120rem;
+  margin: 3rem auto auto auto;
+  padding: 0 1.5rem;
+}
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 1.5rem;
+  grid-template-areas: "img-1  img-5  img-5" "img-4  img-2  img-3";
+}
+.image-gallery a {
+  width: 100%;
+  height: 25rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+.image-gallery a::before {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.image-gallery a:hover ion-icon,
+.image-gallery a:hover::before {
+  opacity: 1;
+}
+
+.img-1 {
+  grid-area: img-1;
+  background-image: url("../../images/vcam_1.jpg");
+}
+
+.img-2 {
+  grid-area: img-2;
+  background-image: url("../../images/vcam_2.jpg");
+}
+
+.img-3 {
+  grid-area: img-3;
+  background-image: url("../../images/vcam_3.jpg");
+}
+
+.img-4 {
+  grid-area: img-4;
+  background-image: url("../../images/vcam_4.jpg");
+}
+
+.img-5 {
+  grid-area: img-5;
+  background-image: url("../../images/vcam_5.jpg");
+}
+
+@media (max-width: 900px) {
+  .image-gallery {
+    grid-template-areas: "img-1  img-5  img-4" "img-2  img-2  img-3";
+  }
+}
+@media (max-width: 414px) {
+  .image-gallery {
+    grid-template-columns: 1fr;
+    grid-template-areas: "img-1" "img-2" "img-3" "img-4" "img-5";
+  }
+}
+ion-icon {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 3rem;
+  position: relative;
+  z-index: 100;
+  padding: 1rem 3rem;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 0.4rem;
+  opacity: 0;
+  transition: opacity 0.5s;
 }
 
 /*# sourceMappingURL=style.css.map */
