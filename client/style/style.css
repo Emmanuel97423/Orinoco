@@ -306,6 +306,7 @@ h1 {
 }
 .cart-page p {
   font-size: 16px;
+  font-weight: bold;
 }
 .cart-page small {
   font-size: 14px;
