@@ -1,5 +1,8 @@
-@import "./base/reset", 
+@import "./utils/variables",
+ "./base/reset", 
 "./base/typography",
 "./pages/productList", 
 "./components/icons",
-"./pages/productDetails"
+"./pages/productDetails",
+"./pages/cart",
+"./pages/orderConfirmation"
