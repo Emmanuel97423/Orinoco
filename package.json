@@ -6,9 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+<<<<<<< HEAD
     "sass": "sass --watch client/style/sass/main.scss:client/style/style.css " ,
     "push": "git push https://github.com/Emmanuel97423/P05_OC.git",
     "pull": "git pull https://github.com/Emmanuel97423/P05_OC.git"
+=======
+    "sass": "sass --watch client/style/sass/main.scss:client/style/style.css ",
+    "push": "git push https://github.com/Emmanuel97423/P05_OC.git"
+>>>>>>> d40abb2c77d9f8635aea14c3d719c763826022cd
   },
   "author": "",
   "license": "ISC",

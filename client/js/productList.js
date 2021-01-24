@@ -1,3 +1,19 @@
+let template = document.getElementById("product-list");
+let templateContent =  template.content;
+document.body.appendChild(templateContent);
+
+customElements.define('product-list',
+  class extends HTMLElement {
+    constructor() {
+      super();
+      let template = document.getElementById('product-list');
+      let templateContent = template.content;
+
+      const shadowRoot = this.attachShadow({mode: 'open'})
+        .appendChild(templateContent.cloneNode(true));
+  }
+})
+
 function productList() {
     const request = new XMLHttpRequest();
 
@@ -6,7 +22,7 @@ request.onreadystatechange = function() {
         let response = JSON.parse(this.responseText);
         console.log(response);
         //Récupération du nom
-        function productNameList(){
+        const productNameList = ()=> {
             /*const productNameTitle = document.createElement('h3');
             productNameTitle.classList.add("product-name");
             const productListDiv = document.getElementById('product-list');
@@ -20,6 +36,8 @@ request.onreadystatechange = function() {
             }
        } 
        productNameList()
+
+       
     }  
 } 
 request.open('GET', 'http://localhost:3000/api/cameras');
