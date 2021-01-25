@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+<<<<<<< HEAD
+    "sass": "sass --watch client/style/sass/main.scss:client/style/style.css ",
+=======
     "sass": "sass --watch client/style/sass/main.scss:client/style/style.css " ,
+>>>>>>> de9c9d96359b6cfe4cba40febeb9ff500780f225
     "push": "git push https://github.com/Emmanuel97423/P05_OC.git",
     "pull": "git pull https://github.com/Emmanuel97423/P05_OC.git"
   },
