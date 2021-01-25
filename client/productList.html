@@ -29,10 +29,28 @@
         <a href="../images/vcam_5" class="img-5">
           <ion-icon name="add-circle-outline"></ion-icon>
         </a>
-        <product-list></product-list>
+        
       </div>
     </div>
-    <template id="product-list"> <p>Hello</p></template>
+    <button class="btn__list"  onClick='data()'>Voir les caméras</button>
+    <table class="table table-image">
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th>img</th>
+          <th>Nom</th>
+          <th>Prix</th>
+        </tr>
+      </thead>
+       <!--Corps du tableau avec liste des produits-->
+       <tbody id="product-list__table">
+        <product-list></product-list>
+       </tbody>
+    </table>
+    
+    <!-- Construction du template list de produits-->
+    <template id="product-list">
+      
+    </template>
 
     <script src="js/productList.js"></script>
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>

@@ -10,6 +10,9 @@ body {
   background-color: #eee;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
 }
 
 html {
@@ -390,6 +393,20 @@ th:last-child {
 }
 .confirmation__infos p {
   font-size: 16px;
+}
+
+.table {
+  width: 86%;
+  height: 60vh;
+}
+
+.btn__list {
+  padding: 15px 30px;
+}
+
+#product-list__table {
+  font-size: 20px;
+  width: 20%;
 }
 
 /*# sourceMappingURL=style.css.map */

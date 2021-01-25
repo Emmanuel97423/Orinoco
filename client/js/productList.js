@@ -1,4 +1,4 @@
-//Création du composant pour la liste de produits
+//Création du composant Web pour la liste de produits
 customElements.define(
   "product-list",
   class extends HTMLElement {
@@ -22,32 +22,31 @@ const data = function productListData() {
   request.onreadystatechange = function () {
     if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
       let response = JSON.parse(this.responseText);
-
-      //Récupération des données
+      //Boucle pour la récupération des données
       const productNameList = () => {
         for (let i = 0; i < response.length; i++) {
-          const productName = response[i].name;
-          //console.log("productName:", productName);
-          const productdDescription = response[i].description;
-          //console.log("productdDescription:", productdDescription);
-          const productLenses = response[i].lenses;
-          //console.log("productLenses:", productLenses);
-          const productPrice = response[i].price;
-          //console.log("productPrice:", productPrice);
-          const productId = response[i]._id;
-          //console.log("productId:", productId);
-          return response;
+          //Création d'un tableau contenant les données
+          let productTab = [];
+          productTab.push(response[i]);
+          //Boucle pour chaque caractéristiques des produits
+          for (product of productTab) {
+            
+            //Création des balises contenant les données
+            const productElementHtml = `
+            <tr class="product-item">
+              <td><img src="${product.imageUrl}"</td>  
+              <td><h3>${product.name}</h3></td>
+              <td>${product.price} €</td> 
+            `;
+            console.log("productElementHtml:", productElementHtml);
+            //console.log("product:", product.name);
+            const productElement = document.getElementById("product-list");
+            productElement.innerHTML = productElementHtml;
+          }
         }
       };
       productNameList();
-      console.log("productNameList():", productNameList());
-
-      const productListHtml = document.getElementById("product-list");
-      const elt = `<p>Hello</p>`;
-      productListHtml.innerHTML = elt;
-      
     }
   };
 };
 data();
-
