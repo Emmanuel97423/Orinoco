@@ -30,7 +30,6 @@ const data = function productListData() {
           productTab.push(response[i]);
           //Boucle pour chaque caractéristiques des produits
           for (product of productTab) {
-            
             //Création des balises contenant les données
             const productElementHtml = `
             <tr class="product-item">
