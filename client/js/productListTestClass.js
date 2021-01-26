@@ -35,7 +35,7 @@ class UI {
       <tr>  
             <td><img src="${product.imageUrl}"
             <td>Nom: ${product.name}</td>
-            <td>Prix: <h3>${product.price}</h3></td>
+            <td>Prix: <h3>${product.price} €</h3></td>
             <td>Lentilles: ${product.lenses}</td>
             </tr>
         `;
