@@ -1,21 +1,35 @@
-//Création du composant Web pour la liste de produits
-customElements.define(
-  "product-list",
-  class extends HTMLElement {
-    constructor() {
-      super();
-      let template = document.getElementById("product-list");
-      let templateContent = template.content;
+//variables
+const productsDOM = document.querySelector("#product-list__table");
 
-      const shadowRoot = this.attachShadow({ mode: "open" }).appendChild(
-        templateContent.cloneNode(true)
-      );
-    }
+//cart
+let cart = [];
+//Requête pour obtention des données
+class Product {
+  getProdutc(){
+      const request = new XMLHttpRequest();
+  request.open("GET", "http://localhost:3000/api/cameras");
+  request.send();
+  request.onreadystatechange = function () {
+    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+      let response = JSON.parse(this.responseText);
+      console.log('response:', response)
+      return response
+
   }
-);
+}
+}
+//activation product
 
+class UI {}
+//stockage des données
+class Storage {}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const ui = new UI();
+  const product = new Product();
+});
 //Requête vers l'API
-const data = function productListData() {
+/*const data = function productListData() {
   const request = new XMLHttpRequest();
   request.open("GET", "http://localhost:3000/api/cameras");
   request.send();
@@ -39,7 +53,9 @@ const data = function productListData() {
             `;
             console.log("productElementHtml:", productElementHtml);
             //console.log("product:", product.name);
-            const productElement = document.getElementById("product-list");
+            const productElement = document.getElementById(
+              "product-list__table"
+            );
             productElement.innerHTML = productElementHtml;
           }
         }
@@ -49,3 +65,19 @@ const data = function productListData() {
   };
 };
 data();
+
+//Création du composant Web pour la liste de produits
+/*customElements.define(
+  "product-list",
+  class extends HTMLElement {
+    constructor() {
+      super();
+      let template = document.getElementById("product-list");
+      let templateContent = template.content;
+
+      const shadowRoot = this.attachShadow({ mode: "open" }).appendChild(
+        templateContent.cloneNode(true)
+      );
+    }
+  }
+);*/
