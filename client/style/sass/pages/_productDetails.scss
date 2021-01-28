@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   h1 {
     font-size: 5rem;
     text-transform: uppercase;
@@ -14,6 +15,7 @@
 }
 .card {
   display: flex;
+  justify-content: center;
   border: 2px solid $color-secondary;
   padding: 60px;
 
