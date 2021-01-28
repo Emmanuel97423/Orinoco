@@ -4,70 +4,66 @@ const productsDOM = document.querySelector("#product-list__table");
 //cart
 let cart = [];
 //Requête pour obtention des données
-class Product {
-  getProdutc(){
-      const request = new XMLHttpRequest();
-  request.open("GET", "http://localhost:3000/api/cameras");
-  request.send();
-  request.onreadystatechange = function () {
-    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-      let response = JSON.parse(this.responseText);
-      console.log('response:', response)
-      return response
+class Products {
+  async getProducts() {
+    try {
+      //requête FETCH
+      let result = await fetch("http://localhost:3000/api/cameras", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await result.json();
+      let products = data.map((product) => {
+        const { name, description, price, lenses, _id, imageUrl } = product;
+        return { name, description, price, lenses, _id, imageUrl };
+      });
 
+      return products;
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
+//activation et design product
+class UI {
+  displayProducts(products) {
+    let result = "";
+    products.forEach((product) => {
+      result += `
+      <tr>  
+            <td><img src="${product.imageUrl}"
+            <td>${product.name}</td>
+            <td><h3>${product.price} €</h3></td>
+            <td> ${product.lenses}</td>
+            <td>
+                   <div class="buttons-link">
+                    <a href="productDetail.html?id=${product._id}" class="buttons btn">
+                        <button class="btn"><ion-icon name="pricetag-outline"></ion-icon>Observer</button>
+                    </a>
+                  </div>
+            </td>
+            </tr>
+        `;
+    });
+    productsDOM.innerHTML = result;
+  }
 }
-//activation product
-
-class UI {}
-//stockage des données
+//stockage des donnees
 class Storage {}
 
 document.addEventListener("DOMContentLoaded", () => {
+  const products = new Products();
   const ui = new UI();
-  const product = new Product();
+  //Obtention de tous les produits
+  products.getProducts().then((products) => {
+    ui.displayProducts(products);
+  });
 });
-//Requête vers l'API
-/*const data = function productListData() {
-  const request = new XMLHttpRequest();
-  request.open("GET", "http://localhost:3000/api/cameras");
-  request.send();
-  request.onreadystatechange = function () {
-    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-      let response = JSON.parse(this.responseText);
-      //Boucle pour la récupération des données
-      const productNameList = () => {
-        for (let i = 0; i < response.length; i++) {
-          //Création d'un tableau contenant les données
-          let productTab = [];
-          productTab.push(response[i]);
-          //Boucle pour chaque caractéristiques des produits
-          for (product of productTab) {
-            //Création des balises contenant les données
-            const productElementHtml = `
-            <tr class="product-item">
-              <td><img src="${product.imageUrl}"</td>  
-              <td><h3>${product.name}</h3></td>
-              <td>${product.price} €</td> 
-            `;
-            console.log("productElementHtml:", productElementHtml);
-            //console.log("product:", product.name);
-            const productElement = document.getElementById(
-              "product-list__table"
-            );
-            productElement.innerHTML = productElementHtml;
-          }
-        }
-      };
-      productNameList();
-    }
-  };
-};
-data();
 
-//Création du composant Web pour la liste de produits
-/*customElements.define(
+//Création du composant Web product-list
+customElements.define(
   "product-list",
   class extends HTMLElement {
     constructor() {
@@ -80,4 +76,4 @@ data();
       );
     }
   }
-);*/
+);
