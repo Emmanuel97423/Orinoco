@@ -5,20 +5,20 @@ const productDetailElement = document.getElementById(
 );
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get("id");
-const price = urlParams.get("price");
-console.log("price:", price);
+const lenses = urlParams.get("lenses");
+console.log("lenses:", lenses);
+
 console.log(id);
 
-//Requête vers l'API
+//Requête AJAX vers l'API
 const productDetails = () => {
   const request = new XMLHttpRequest();
   request.open("GET", "http://localhost:3000/api/cameras/" + id);
   request.send();
-
   request.onreadystatechange = function () {
     if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
       let response = JSON.parse(this.responseText);
-      console.log(response.name);
+      //modification du DOM
       productDetailElement.innerHTML = `      
     <div class="card">
         <div class="images">
@@ -52,9 +52,7 @@ const productDetails = () => {
           <div class="lenses-choice">
              <label for="lenses-select">Selectionner un type de lentille:</label>
               <select name="lenses" id="lenses-select">
-                <option value="value1">Option 1</option>
-                <option value="value2">Option 2</option>
-                <option value="value3">Option 3</option>
+                
               </select>
             <product-lenses></product-lenses>
           </div>
@@ -73,6 +71,17 @@ const productDetails = () => {
           </div>
         </div>
       </div>`;
+      //Itération du select pour les Lentilles
+      const selectElementHtml = document.getElementById("lenses-select");
+
+      const lenses = response.lenses;
+
+      for (lense of lenses) {
+        let select = document.createElement("option");
+        select.value = lense;
+        select.innerHTML = lense;
+        selectElementHtml.appendChild(select);
+      }
     }
   };
 };

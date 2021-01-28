@@ -17,6 +17,7 @@ class Products {
       let data = await result.json();
       let products = data.map((product) => {
         const { name, description, price, lenses, _id, imageUrl } = product;
+
         return { name, description, price, lenses, _id, imageUrl };
       });
 
@@ -39,7 +40,7 @@ class UI {
             <td> ${product.lenses}</td>
             <td>
                    <div class="buttons-link">
-                    <a href="productDetail.html?id=${product._id}" class="buttons btn">
+                    <a href="productDetail.html?id=${product._id}&lenses=${product.lenses}" class="buttons btn">
                         <button class="btn"><ion-icon name="pricetag-outline"></ion-icon>Observer</button>
                     </a>
                   </div>
@@ -61,19 +62,3 @@ document.addEventListener("DOMContentLoaded", () => {
     ui.displayProducts(products);
   });
 });
-
-//Création du composant Web product-list
-customElements.define(
-  "product-list",
-  class extends HTMLElement {
-    constructor() {
-      super();
-      let template = document.getElementById("product-list");
-      let templateContent = template.content;
-
-      const shadowRoot = this.attachShadow({ mode: "open" }).appendChild(
-        templateContent.cloneNode(true)
-      );
-    }
-  }
-);

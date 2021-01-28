@@ -140,7 +140,7 @@ h1 {
   display: flex;
   justify-content: center;
   border: 2px solid #DDA15E;
-  padding: 60px;
+  padding: 20px;
 }
 .card img {
   width: 400px;
