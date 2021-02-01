@@ -7,9 +7,14 @@
 }
 
 body {
+  width: 100%;
+  height: 80vh;
   background-color: #eee;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
 }
 
 html {
@@ -22,7 +27,7 @@ h1 {
   text-transform: uppercase;
   color: black;
   align-self: center;
-  margin: 80px 10px;
+  margin: 25px 10px;
 }
 
 .container {
@@ -118,7 +123,7 @@ h1 {
 }
 .container__product--detail {
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,10 +137,10 @@ h1 {
 }
 
 .card {
-  width: 80%;
   display: flex;
+  justify-content: center;
   border: 2px solid #DDA15E;
-  padding: 60px;
+  padding: 20px;
 }
 .card img {
   width: 400px;
@@ -190,9 +195,9 @@ h1 {
   justify-content: space-between;
   width: 70%;
   /*h5:nth-child(2) {
-      border-right: 2px solid black;
-      padding:0 2rem;
-  }*/
+        border-right: 2px solid black;
+        padding:0 2rem;
+    }*/
 }
 .more-infos h5:nth-child(1) {
   color: black;
@@ -205,7 +210,6 @@ h1 {
   margin: 30px 0 0 0;
 }
 .buttons button {
-  width: 150px;
   padding: 10px 20px;
   background-color: #BC6C25;
   border: none;
@@ -390,6 +394,20 @@ th:last-child {
 }
 .confirmation__infos p {
   font-size: 16px;
+}
+
+.table {
+  width: 86%;
+  height: 60vh;
+}
+
+.btn__list {
+  padding: 15px 30px;
+}
+
+#product-list__table {
+  font-size: 20px;
+  width: 20%;
 }
 
 /*# sourceMappingURL=style.css.map */
