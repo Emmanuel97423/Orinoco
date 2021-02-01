@@ -1,16 +1,15 @@
-//Création des composants pour le panier
-  //Détail panier du produit
-  customElements.define(
-    "product-cart-details",
-    class extends HTMLElement {
-      constructor() {
-        super();
-        let template = document.getElementById("product-cart-details");
-        let templateContent = template.content;
-  
-        const shadowRoot = this.attachShadow({ mode: "open" }).appendChild(
-          templateContent.cloneNode(true)
-        );
-      }
+      //Requête AJAX vers l'API
+const cartProductDetails = () => {
+  const request = new XMLHttpRequest();
+  request.open("GET", "http://localhost:3000/api/cameras/" + id);
+  request.send();
+  request.onreadystatechange = function () {
+    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+ 
+
     }
-  );
+  };
+};
+cartProductDetails();
+
+      

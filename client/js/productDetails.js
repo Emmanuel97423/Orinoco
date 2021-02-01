@@ -66,7 +66,7 @@ const productDetails = () => {
             </button>
           </div>
         </div>
-      </div>`;
+        </div>`;
       //Itération du select pour les Lentilles
       const selectElementHtml = document.getElementById("lenses-select");
       const lenses = response.lenses;
@@ -76,25 +76,32 @@ const productDetails = () => {
         select.innerHTML = lense;
         selectElementHtml.appendChild(select);
       }
-      //Initialisation du local storage
-
-      const btnOrderProduct = () => {
-        const cartStorage = localStorage;
-
-        const btnOrderProductElement = document.getElementById("btn__order");
-        if (btnOrderProductElement) {
-          btnOrderProductElement.addEventListener("click", function (e) {
-            e.stopPropagation();
-            console.log("c'est cliqué!");
-            cartStorage.setItem("Procut Name", response._id);
-            cartStorage.setItem("Quantity", 1);
-          });
-        }
-      };
-      btnOrderProduct();
+        //CART
+        const productStorage = [];
+        const btnOrderProduct = () => {
+          const cartStorage = localStorage;
+            //Ecoute du bouton commander
+          const btnOrderProductElement = document.getElementById("btn__order");
+          if (btnOrderProductElement) {
+            let productQuantityStorage = 0;
+            btnOrderProductElement.addEventListener("click", function (e) {
+              productStorage.push({
+                "productId" : id,
+                "productName" : response.name,
+                "productImage" : response.imageUrl,
+                "productPrice" : response.price,
+                "productDescription" : response.description,
+                "quantity" : productQuantityStorage + 1
+              });
+              cartStorage.setItem("Procut items", JSON.stringify(productStorage));
+              e.stopPropagation()
+            });
+          }
+        };
+        btnOrderProduct();  
     }
   };
 };
 productDetails();
 
-//Ecoute du bouton commander
+
