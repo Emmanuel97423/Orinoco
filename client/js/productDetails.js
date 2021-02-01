@@ -1,14 +1,10 @@
+//variables
 const queryString = window.location.search;
-console.log("queryString:", queryString);
 const productDetailElement = document.getElementById(
   "container__product--detail"
 );
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get("id");
-const lenses = urlParams.get("lenses");
-console.log("lenses:", lenses);
-
-console.log(id);
 
 //Requête AJAX vers l'API
 const productDetails = () => {
@@ -64,8 +60,8 @@ const productDetails = () => {
           <div class="info-content">
             <p>${response.description}</p>
           </div>
-          <div class="buttons">
-            <button class="btn">
+          <div class="buttons" id="btn__order">
+            <button class="btn btn-order" >
               <ion-icon name="cart-outline"></ion-icon>Commander
             </button>
           </div>
@@ -73,63 +69,32 @@ const productDetails = () => {
       </div>`;
       //Itération du select pour les Lentilles
       const selectElementHtml = document.getElementById("lenses-select");
-
       const lenses = response.lenses;
-
       for (lense of lenses) {
         let select = document.createElement("option");
         select.value = lense;
         select.innerHTML = lense;
         selectElementHtml.appendChild(select);
       }
+      //Initialisation du local storage
+
+      const btnOrderProduct = () => {
+        const cartStorage = localStorage;
+
+        const btnOrderProductElement = document.getElementById("btn__order");
+        if (btnOrderProductElement) {
+          btnOrderProductElement.addEventListener("click", function (e) {
+            e.stopPropagation();
+            console.log("c'est cliqué!");
+            cartStorage.setItem("Procut Name", response._id);
+            cartStorage.setItem("Quantity", 1);
+          });
+        }
+      };
+      btnOrderProduct();
     }
   };
 };
-
 productDetails();
-//Création des composants pour les détails du produit
-//Prix du produit
-/*customElements.define(
-  "product-price",
-  class extends HTMLElement {
-    constructor() {
-      super();
-      let template = document.getElementById("product-price");
-      let templateContent = template.content;
 
-      const shadowRoot = this.attachShadow({ mode: "open" }).appendChild(
-        templateContent.cloneNode(true)
-      );
-    }
-  }
-);
-//Description du produit
-customElements.define(
-  "product-description",
-  class extends HTMLElement {
-    constructor() {
-      super();
-      let template = document.getElementById("product-description");
-      let templateContent = template.content;
-
-      const shadowRoot = this.attachShadow({ mode: "open" }).appendChild(
-        templateContent.cloneNode(true)
-      );
-    }
-  }
-);
-//Selection des lentilles
-customElements.define(
-  "product-lenses",
-  class extends HTMLElement {
-    constructor() {
-      super();
-      let template = document.getElementById("product-lenses");
-      let templateContent = template.content;
-
-      const shadowRoot = this.attachShadow({ mode: "open" }).appendChild(
-        templateContent.cloneNode(true)
-      );
-    }
-  }
-);*/
+//Ecoute du bouton commander
