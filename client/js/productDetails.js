@@ -66,7 +66,8 @@ const productDetails = () => {
             </button>
           </div>
         </div>
-        </div>`;
+        </div>
+        `;
       //Itération du select pour les Lentilles
       const selectElementHtml = document.getElementById("lenses-select");
       const lenses = response.lenses;
@@ -76,32 +77,37 @@ const productDetails = () => {
         select.innerHTML = lense;
         selectElementHtml.appendChild(select);
       }
-        //CART
-        const productStorage = [];
-        const btnOrderProduct = () => {
-          const cartStorage = localStorage;
-            //Ecoute du bouton commander
-          const btnOrderProductElement = document.getElementById("btn__order");
-          if (btnOrderProductElement) {
-            let productQuantityStorage = 0;
-            btnOrderProductElement.addEventListener("click", function (e) {
-              productStorage.push({
-                "productId" : id,
-                "productName" : response.name,
-                "productImage" : response.imageUrl,
-                "productPrice" : response.price,
-                "productDescription" : response.description,
-                "quantity" : productQuantityStorage + 1
-              });
-              cartStorage.setItem("Procut items", JSON.stringify(productStorage));
-              e.stopPropagation()
-            });
-          }
-        };
-        btnOrderProduct();  
+      //CART
+      let productStorage = {};
+      const btnOrderProduct = () => {
+        const cartStorage = localStorage;
+
+        //Ecoute du bouton commander
+        const btnOrderProductElement = document.getElementById("btn__order");
+        if (btnOrderProductElement) {
+          let productQuantityStorage = 1;
+          btnOrderProductElement.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            productStorage = {
+              productId: id,
+              productName: response.name,
+              productImage: response.imageUrl,
+              productPrice: response.price,
+              productDescription: response.description,
+              quantity: productQuantityStorage++,
+              productLenses: selectElementHtml.value,
+            };
+            const localStorageIdProduct = id + selectElementHtml.value;
+            cartStorage.setItem(
+              localStorageIdProduct,
+              JSON.stringify(productStorage)
+            );
+          });
+        }
+      };
+      btnOrderProduct();
     }
   };
 };
 productDetails();
-
-

@@ -1,55 +1,60 @@
 //Variables
-const cartHtmlElement = document.getElementById('cart__table');
+const cartHtmlElement = document.getElementById("table__data");
+const cartData = document.createElement("tr");
+
+console.log("cartHtmlElement:", cartHtmlElement);
+
 //Local Storage
-let productLocalStorage = JSON.parse(localStorage.getItem("Procut items"));
-let productQuantityLocalStorage = parseInt(localStorage.getItem("Quantity"));
-console.log(productLocalStorage[0].productPrice);
-//console.log(typeof productQuantityLocalStorage);
+let productLocalStorage = allStorage();
+console.log("productLocalStorage:", productLocalStorage);
+
 //Cart
-if (productLocalStorage === null) {
-    cartHtmlElement.innerHTML = "<h2>Votre panier est vide</h2>" 
+
+if (!productLocalStorage) {
+  cartHtmlElement.innerHTML = "<h1>Votre panier est vide</h1>";
+  console.log("No product");
 } else {
-cartHtmlElement.innerHTML =`
-<table>
-<tr>
-  <th>Article</th>
-  <th>Quantité</th> 
-  <th>Subtotal</th>
-</tr>
-<tr>
-  <td>
-    <div class="cart-info">
-      <img src="${productLocalStorage[0].productImage}" width="200" />
-      <div>
-        <p>${productLocalStorage[0].productName}</p>
-        <small>Lentille: </small><br />
-        <small>Prix: ${productLocalStorage[0].productPrice} €</small><br />
-        <a href="">Retirer</a>
-      </div>
-    </div>
-  </td>
-  <td><input type="number" value="${productLocalStorage[0].quantity}" /></td>
-  <td>${productLocalStorage[0].quantity * productLocalStorage[0].productPrice} €</td>
-</tr>
+  let result = "";
 
-</table>
-<div class="total-price">
-<table>
-  <tr>
-    <td>Subtotal</td>
-    <td>650.00 €</td>
-  </tr>
-  <tr>
-    <td>Tax (tva)</td>
-    <td>35.00 €</td>
-  </tr>
-  <tr>
-    <td><strong>Total T.T.C</strong></td>
-    <td><strong>685.00 €</strong></td>
-  </tr>
-</table>
-</div>
-` 
+  productLocalStorage.forEach(function (item) {
+    console.log("item:", typeof item);
+    result += `
+           <tr>
+            <td>
+              <div class="cart-info">
+                <img src="" width="200" />
+                <div>
+                  <p></p>
+                  <small>Lentille: </small><br />
+                  <small>Prix: €</small><br />
+                  <a href="" onClick="removeProduct()">Retirer</a>
+                </div>
+              </div>
+            </td>
+            <td><input type="number" value="" /></td>
+            <td> <p>100€</p></td>
+            </tr>
+          
+            
+           
+`;
+  });
+  cartHtmlElement.innerHTML = result;
 }
-;  
 
+//Supprimer produits
+const removeProduct = () => {
+  localStorage.removeItem("Product items");
+};
+//Get all localstorage
+function allStorage() {
+  var values = [],
+    keys = Object.keys(localStorage),
+    i = keys.length;
+
+  while (i--) {
+    values.push(localStorage.getItem(keys[i]));
+  }
+
+  return values;
+}

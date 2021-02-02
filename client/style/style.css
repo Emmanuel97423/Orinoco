@@ -384,6 +384,10 @@ th:last-child {
   text-align: right;
 }
 
+#table__quantity--label {
+  text-align: right;
+}
+
 .confirmation__infos {
   display: flex;
   flex-direction: column;
