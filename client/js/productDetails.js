@@ -88,7 +88,6 @@ const productDetails = () => {
           let productQuantityStorage = 1;
           btnOrderProductElement.addEventListener("click", function (e) {
             e.preventDefault();
-
             productStorage = {
               productId: id,
               productName: response.name,
