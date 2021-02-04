@@ -1,9 +1,8 @@
 //Variables
 const cartHtmlElement = document.getElementById("table__data");
-
+const cartSubtotalHtmlElement = document.getElementById("table__subtotal");
 //Local Storage
 let productLocalStorage = allStorage();
-console.log("productLocalStorage:", productLocalStorage);
 
 //Cart
 
@@ -11,32 +10,34 @@ if (!productLocalStorage) {
   cartHtmlElement.innerHTML = "<h1>Votre panier est vide</h1>";
   console.log("No product");
 } else {
-  let result = "";
+  //Cart Data
 
+  let result = "";
   productLocalStorage.forEach(function (item) {
-    console.log("item:", typeof item);
+    let productSubtotal = item.productPrice * item.quantity;
+
     result += `
-           <tr>
-            <td>
-              <div class="cart-info">
-                <img src="" width="200" />
-                <div>
-                  <p></p>
-                  <small>Lentille: </small><br />
-                  <small>Prix: €</small><br />
-                  <a href="" onClick="removeProduct()">Retirer</a>
+            <tr>
+              <td>
+                <div class="cart-info">
+                  <img src="${item.productImage}" width="200" />
+                  <div>
+                    <p>${item.productName}</p>
+                    <small>Lentille: </small><br />
+                    <small>Prix: ${item.productPrice}€</small><br />
+                    <a class="removeCartItemButton" href="#">Retirer</a>
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td><input type="number" value="" /></td>
-            <td> <p>100€</p></td>
-            </tr>
-          
-            
-           
-`;
+              </td>
+              <td><input class="cart-quantity-input" type="number" value="${item.quantity}" /></td>
+              <td> <p class="cart__subtotal">${productSubtotal} €</p></td>
+              </tr>         
+                `;
+    return productSubtotal;
   });
+
   cartHtmlElement.innerHTML = result;
+  const productSubtotalHtmlElement = document.querySelector(".cart__subtotal");
 }
 
 //Supprimer produits
@@ -51,7 +52,7 @@ function allStorage() {
     key;
 
   for (; (key = keys[i]); i++) {
-    archive.push(key + "=" + localStorage.getItem(key));
+    archive.push(JSON.parse(localStorage.getItem(key)));
   }
 
   return archive;

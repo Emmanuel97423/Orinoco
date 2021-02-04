@@ -84,8 +84,8 @@ const productDetails = () => {
 
         //Ecoute du bouton commander
         const btnOrderProductElement = document.getElementById("btn__order");
+        let productQuantityStorage = 1;
         if (btnOrderProductElement) {
-          let productQuantityStorage = 1;
           btnOrderProductElement.addEventListener("click", function (e) {
             e.preventDefault();
             productStorage = {
