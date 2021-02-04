@@ -58,6 +58,7 @@
             id="fullname"
             name="firstname"
             placeholder="Nom et prénom"
+            required
           />
           <label for="email"><i class="fa fa-envelope"></i> Email</label>
           <input
@@ -65,6 +66,7 @@
             id="email"
             name="email"
             placeholder="votreadresse@example.com"
+            required
           />
           <label for="adr"><i class="fa fa-address-card-o"></i> Addresse</label>
           <input
@@ -72,18 +74,37 @@
             id="adr"
             name="address"
             placeholder="63 rue des developpeurs"
+            required
           />
           <label for="city"><i class="fa fa-institution"></i> ville</label>
-          <input type="text" id="city" name="city" placeholder="Saint-Paul" />
+          <input
+            type="text"
+            id="city"
+            name="city"
+            placeholder="Saint-Paul"
+            required
+          />
 
           <div class="row">
             <div class="col-50">
               <label for="state">Pays</label>
-              <input type="text" id="state" name="state" placeholder="France" />
+              <input
+                type="text"
+                id="state"
+                name="state"
+                placeholder="France"
+                required
+              />
             </div>
             <div class="col-50">
               <label for="zip">Code postal</label>
-              <input type="text" id="zip" name="zip" placeholder="97460" />
+              <input
+                type="text"
+                id="zip"
+                name="zip"
+                placeholder="97460"
+                required
+              />
             </div>
           </div>
         </div>
@@ -103,6 +124,7 @@
             id="cname"
             name="cardname"
             placeholder="John More Doe"
+            required
           />
           <label for="ccnum">Numéro de la carte</label>
           <input
@@ -110,6 +132,7 @@
             id="ccnum"
             name="cardnumber"
             placeholder="1111-2222-3333-4444"
+            required
           />
           <label for="expmonth">Mois d'expiration</label>
           <input
@@ -117,6 +140,7 @@
             id="expmonth"
             name="expmonth"
             placeholder="Janvier"
+            required
           />
           <div class="row">
             <div class="col-50">
@@ -126,11 +150,18 @@
                 id="expyear"
                 name="expyear"
                 placeholder="2025"
+                required
               />
             </div>
             <div class="col-50">
               <label for="cvv">CVV</label>
-              <input type="text" id="cvv" name="cvv" placeholder="352" />
+              <input
+                type="text"
+                id="cvv"
+                name="cvv"
+                placeholder="352"
+                required
+              />
             </div>
           </div>
         </div>
