@@ -40,6 +40,7 @@ function purchaseClicked() {
 
 function removeCartItem(event) {
   let buttonClicked = event.target;
+  console.log("buttonClicked:", buttonClicked);
   buttonClicked.parentElement.parentElement.parentElement.parentElement.remove();
   updateCartTotal();
 }

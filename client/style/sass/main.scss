@@ -1,9 +1,4 @@
-@import "./utils/variables",
- "./base/reset", 
-"./base/typography",
-"./pages/productList", 
-"./components/icons",
-"./pages/productDetails",
-"./pages/cart",
-"./pages/orderConfirmation",
-"./components/productListTable"
+@import "./utils/variables", "./base/reset", "./base/typography",
+  "./pages/productList", "./components/icons", "./pages/productDetails",
+  "./pages/cart", "./pages/orderConfirmation", "./components/productListTable",
+  "./components/paymentForm";
