@@ -33,16 +33,8 @@
       <div class="total-price">
         <table>
           <tr>
-            <td>Subtotal</td>
-            <td>650.00 €</td>
-          </tr>
-          <tr>
-            <td>Tax (tva)</td>
-            <td>35.00 €</td>
-          </tr>
-          <tr>
             <td><strong>Total T.T.C</strong></td>
-            <td><strong>685.00 €</strong></td>
+            <td><strong><span id="cart--total"></span> €</strong></td>
           </tr>
         </table>
       </div>
@@ -68,7 +60,7 @@
       </div>
     </form>-->
 
-    <form action="http://localhost:3000/api/cameras/order" method="POST">
+    <form id = "form__order" method="POST">
       <div class="row">
         <div class="col-50">
           <h3>Adresse de livraison</h3>
@@ -78,7 +70,7 @@
             id="fullname"
             name="firstname"
             placeholder="Nom et prénom"
-            required
+            
           />
           <label for="email"><i class="fa fa-envelope"></i> Email</label>
           <input
@@ -86,7 +78,7 @@
             id="email"
             name="email"
             placeholder="votreadresse@example.com"
-            required
+            
           />
           <label for="adr"><i class="fa fa-address-card-o"></i> Addresse</label>
           <input
@@ -94,7 +86,7 @@
             id="adr"
             name="address"
             placeholder="63 rue des developpeurs"
-            required
+            
           />
           <label for="city"><i class="fa fa-institution"></i> ville</label>
           <input
@@ -102,7 +94,7 @@
             id="city"
             name="city"
             placeholder="Saint-Paul"
-            required
+            
           />
 
           <div class="row">
@@ -113,7 +105,7 @@
                 id="state"
                 name="state"
                 placeholder="France"
-                required
+                
               />
             </div>
             <div class="col-50">
@@ -123,7 +115,7 @@
                 id="zip"
                 name="zip"
                 placeholder="97460"
-                required
+                
               />
             </div>
           </div>
@@ -144,7 +136,7 @@
             id="cname"
             name="cardname"
             placeholder="John More Doe"
-            required
+            
           />
           <label for="ccnum">Numéro de la carte</label>
           <input
@@ -152,7 +144,7 @@
             id="ccnum"
             name="cardnumber"
             placeholder="1111-2222-3333-4444"
-            required
+            
           />
           <label for="expmonth">Mois d'expiration</label>
           <input
@@ -160,7 +152,7 @@
             id="expmonth"
             name="expmonth"
             placeholder="Janvier"
-            required
+            
           />
           <div class="row">
             <div class="col-50">
@@ -170,7 +162,7 @@
                 id="expyear"
                 name="expyear"
                 placeholder="2025"
-                required
+                
               />
             </div>
             <div class="col-50">
@@ -180,7 +172,7 @@
                 id="cvv"
                 name="cvv"
                 placeholder="352"
-                required
+                
               />
             </div>
           </div>

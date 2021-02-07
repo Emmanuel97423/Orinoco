@@ -30,7 +30,7 @@ if (!productLocalStorage) {
                 </div>
               </td>
               <td><input class="cart-quantity-input" type="number" value="${item.quantity}" /></td>
-              <td> <p class="cart__subtotal">${productSubtotal} €</p></td>
+              <td> <p class="cart__subtotal">${productSubtotal}</p>€</td>
               </tr>         
                 `;
     return productSubtotal;
@@ -57,3 +57,47 @@ function allStorage() {
 
   return archive;
 }
+//Total cart
+const totalElementHtml = document.getElementById('cart--total');
+const subtotalElementHtml = document.getElementsByClassName('cart__subtotal');
+;
+let total = 0;
+for(let i=0; i < subtotalElementHtml.length; i++) {
+  total += parseInt(subtotalElementHtml[i].innerHTML)
+};
+console.log(total)
+totalElementHtml.innerHTML = total;
+
+let contact = {};
+let productArr = [];
+let orderProduct =allStorage();
+function cartTotal() {
+  const fullNameOrder = document.getElementById('fullname');
+  const userAdressorder = document.getElementById('adr');
+  const userEmail = document.getElementById('email');
+  const zip = document.getElementById('zip')
+  const formHtml = document.getElementById('form__order')
+  formHtml.addEventListener('submit', function(e) {
+    e.preventDefault();
+    contact = {
+      Fullname: fullNameOrder.value,
+      Adresse: userAdressorder.value,
+      Email: userEmail.value,
+      Zip: zip.value,
+      Payment: total,
+      ProductList: orderProduct,
+     
+      
+    };
+    productArr.push(orderProduct);
+    localStorage.setItem('producList', JSON.stringify(productArr));
+    localStorage.setItem('contact', JSON.stringify(contact));
+    
+    const request = new XMLHttpRequest();
+    request.open('POST', 'http://localhost:3000/api/cameras/order');
+    request.setRequestHeader('Content-type', 'application/json')
+    request.send(contact);
+   
+  })
+}
+cartTotal();

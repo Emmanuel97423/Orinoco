@@ -1,8 +1,8 @@
 if (document.readyState == "loading") {
-  console.log("if");
+ 
   document.addEventListener("DOMContentLoaded", ready);
 } else {
-  console.log("else");
+ 
   ready();
 }
 let cartLocalStorage = allStorage();
@@ -40,7 +40,6 @@ function purchaseClicked() {
 
 function removeCartItem(event) {
   let buttonClicked = event.target;
-  console.log("buttonClicked:", buttonClicked);
   buttonClicked.parentElement.parentElement.parentElement.parentElement.remove();
   updateCartTotal();
 }
