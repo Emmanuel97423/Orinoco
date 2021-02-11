@@ -14,7 +14,7 @@ if (!productLocalStorage) {
 
   let result = "";
   productLocalStorage.forEach(function (item) {
-    let productSubtotal = item.productPrice * item.quantity;
+    let productSubtotal = (item.productPrice / 100) * item.quantity;
 
     result += `
             <tr>
@@ -24,13 +24,19 @@ if (!productLocalStorage) {
                   <div>
                     <p>${item.productName}</p>
                     <small>Lentille: </small><br />
-                    <small>Prix: ${item.productPrice}€</small><br />
+                    <small>Prix: ${(item.productPrice / 100).toFixed(
+                      2
+                    )} €</small><br />
                     <a class="removeCartItemButton" href="#">Retirer</a>
                   </div>
                 </div>
               </td>
-              <td><input class="cart-quantity-input" type="number" value="${item.quantity}" /></td>
-              <td> <p class="cart__subtotal">${productSubtotal}</p>€</td>
+              <td><input class="cart-quantity-input" type="number" value="${
+                item.quantity
+              }" /></td>
+              <td> <p class="cart__subtotal">${
+                productSubtotal.toFixed(2) + " €"
+              }</p></td>
               </tr>         
                 `;
     return productSubtotal;
@@ -40,10 +46,6 @@ if (!productLocalStorage) {
   const productSubtotalHtmlElement = document.querySelector(".cart__subtotal");
 }
 
-//Supprimer produits
-const removeProduct = () => {
-  localStorage.removeItem(productLocalStorage);
-};
 //Get all localstorage
 function allStorage() {
   var archive = [],
@@ -57,47 +59,3 @@ function allStorage() {
 
   return archive;
 }
-//Total cart
-const totalElementHtml = document.getElementById('cart--total');
-const subtotalElementHtml = document.getElementsByClassName('cart__subtotal');
-;
-let total = 0;
-for(let i=0; i < subtotalElementHtml.length; i++) {
-  total += parseInt(subtotalElementHtml[i].innerHTML)
-};
-console.log(total)
-totalElementHtml.innerHTML = total;
-
-let contact = {};
-let productArr = [];
-let orderProduct =allStorage();
-function cartTotal() {
-  const fullNameOrder = document.getElementById('fullname');
-  const userAdressorder = document.getElementById('adr');
-  const userEmail = document.getElementById('email');
-  const zip = document.getElementById('zip')
-  const formHtml = document.getElementById('form__order')
-  formHtml.addEventListener('submit', function(e) {
-    e.preventDefault();
-    contact = {
-      Fullname: fullNameOrder.value,
-      Adresse: userAdressorder.value,
-      Email: userEmail.value,
-      Zip: zip.value,
-      Payment: total,
-      ProductList: orderProduct,
-     
-      
-    };
-    productArr.push(orderProduct);
-    localStorage.setItem('producList', JSON.stringify(productArr));
-    localStorage.setItem('contact', JSON.stringify(contact));
-    
-    const request = new XMLHttpRequest();
-    request.open('POST', 'http://localhost:3000/api/cameras/order');
-    request.setRequestHeader('Content-type', 'application/json')
-    request.send(contact);
-   
-  })
-}
-cartTotal();

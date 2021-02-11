@@ -1,3 +1,4 @@
+//Listage des produits
 //variables
 const productsDOM = document.querySelector("#product-list__table");
 
@@ -36,11 +37,13 @@ class UI {
       <tr>  
             <td><img src="${product.imageUrl}"
             <td>${product.name}</td>
-            <td><h3>${product.price} €</h3></td>
+            <td><h3>${(product.price / 100).toFixed(2)} €</h3></td>
             <td> ${product.lenses}</td>
             <td>
                    <div class="buttons-link">
-                    <a href="productDetail.html?id=${product._id}&lenses=${product.lenses}" class="buttons btn">
+                    <a href="productDetail.html?id=${product._id}&lenses=${
+        product.lenses
+      }" class="buttons btn">
                         <button class="btn"><ion-icon name="pricetag-outline"></ion-icon>Observer</button>
                     </a>
                   </div>

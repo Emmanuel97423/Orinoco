@@ -44,7 +44,7 @@ const productDetails = () => {
           </div>
 
           <div class="price">
-            <h2>${response.price} €</h2>
+            <h2>${(response.price / 100).toFixed(2)} €</h2>
           <div class="lenses-choice">
              <label for="lenses-select">Selectionner un type de lentille:</label>
               <select name="lenses" id="lenses-select">
@@ -84,10 +84,11 @@ const productDetails = () => {
 
         //Ecoute du bouton commander
         const btnOrderProductElement = document.getElementById("btn__order");
-        let productQuantityStorage = 1;
+        let productQuantityStorage = 0;
         if (btnOrderProductElement) {
           btnOrderProductElement.addEventListener("click", function (e) {
-            e.preventDefault();
+            e.stopPropagation();
+
             productStorage = {
               productId: id,
               productName: response.name,

@@ -1,11 +1,20 @@
+//Variables
+const firstNameOrder = document.getElementById("firstname");
+const lastNameOrder = document.getElementById("lastname");
+const userAdressorder = document.getElementById("adr");
+const userEmail = document.getElementById("email");
+const city = document.getElementById("city");
+const formHtml = document.getElementById("form__order");
+const totalElementHtml = document.getElementById("cart--total");
+const subtotalElementHtml = document.getElementsByClassName("cart__subtotal");
+let quantityInputs = document.getElementsByClassName("cart-quantity-input");
+let cartLocalStorage = allStorage();
+
 if (document.readyState == "loading") {
- 
   document.addEventListener("DOMContentLoaded", ready);
 } else {
- 
   ready();
 }
-let cartLocalStorage = allStorage();
 
 function ready() {
   let removeCartItemButtons = document.getElementsByClassName(
@@ -21,21 +30,11 @@ function ready() {
     let button = removeCartItemButtons[i];
     button.addEventListener("click", ProductRemoveStorageCart);
   }
-  let quantityInputs = document.getElementsByClassName("cart-quantity-input");
 
   for (let i = 0; i < quantityInputs.length; i++) {
     let input = quantityInputs[i];
     input.addEventListener("change", quantityChanged);
   }
-}
-
-function purchaseClicked() {
-  alert("Thank you for your purchase");
-  let cartItems = document.getElementsByClassName("cart-items")[0];
-  while (cartItems.hasChildNodes()) {
-    cartItems.removeChild(cartItems.firstChild);
-  }
-  updateCartTotal();
 }
 
 function removeCartItem(event) {
@@ -63,48 +62,7 @@ function quantityChanged(event) {
   updateCartTotal();
 }
 
-function addToCartClicked(event) {
-  let button = event.target;
-  let shopItem = button.parentElement.parentElement;
-  let title = shopItem.getElementsByClassName("shop-item-title")[0].innerText;
-  let price = shopItem.getElementsByClassName("shop-item-price")[0].innerText;
-  let imageSrc = shopItem.getElementsByClassName("shop-item-image")[0].src;
-  addItemToCart(title, price, imageSrc);
-  updateCartTotal();
-}
-
-function addItemToCart(title, price, imageSrc) {
-  let cartRow = document.createElement("div");
-  cartRow.classList.add("cart-row");
-  let cartItems = document.getElementsByClassName("cart-items")[0];
-  let cartItemNames = cartItems.getElementsByClassName("cart-item-title");
-  for (let i = 0; i < cartItemNames.length; i++) {
-    if (cartItemNames[i].innerText == title) {
-      alert("This item is already added to the cart");
-      return;
-    }
-  }
-  let cartRowContents = `
-        <div class="cart-item cart-column">
-            <img class="cart-item-image" src="${imageSrc}" width="100" height="100">
-            <span class="cart-item-title">${title}</span>
-        </div>
-        <span class="cart-price cart-column">${price}</span>
-        <div class="cart-quantity cart-column">
-            <input class="cart-quantity-input" type="number" value="1">
-            <button class="btn btn-danger" type="button">REMOVE</button>
-        </div>`;
-  cartRow.innerHTML = cartRowContents;
-  cartItems.append(cartRow);
-  cartRow
-    .getElementsByClassName("btn-danger")[0]
-    .addEventListener("click", removeCartItem);
-  cartRow
-    .getElementsByClassName("cart-quantity-input")[0]
-    .addEventListener("change", quantityChanged);
-}
-
-function updateCartTotal() {
+/*function updateCartTotal() {
   let cartItemContainer = document.getElementsByClassName("cart-items")[0];
   let cartRows = cartItemContainer.getElementsByClassName("cart-row");
   let total = 0;
@@ -121,7 +79,7 @@ function updateCartTotal() {
   total = Math.round(total * 100) / 100;
   document.getElementsByClassName("cart-total-price")[0].innerText =
     "$" + total;
-}
+}*/
 
 function allStorageCart() {
   var archive = [],
@@ -132,7 +90,64 @@ function allStorageCart() {
   for (; (key = keys[i]); i++) {
     archive.push(JSON.parse(localStorage.getItem(key)));
   }
-  console.log("archive:", archive);
+
   return archive;
 }
 allStorageCart();
+
+//Total cart
+
+let total = 0;
+for (let i = 0; i < subtotalElementHtml.length; i++) {
+  total += parseInt(subtotalElementHtml[i].innerHTML);
+}
+
+totalElementHtml.innerHTML = total.toFixed(2);
+//Définision des tableaux et objets
+let contact = {};
+let productArr = [];
+let orderProduct = allStorage();
+let information = {};
+//liste des Id des articles commandé
+for (let i = 0; orderProduct.length > i; i++) {
+  productArr.push(orderProduct[i].productId);
+}
+//requête AJAX vers order API
+function orderPost() {
+  contact = {
+    firstName: firstNameOrder.value,
+    lastName: lastNameOrder.value,
+    address: userAdressorder.value,
+    email: userEmail.value,
+    city: city.value,
+  };
+  informations = {
+    contact: contact,
+    products: productArr,
+  };
+  localStorage.clear();
+  localStorage.setItem("products", JSON.stringify(productArr));
+  localStorage.setItem("contact", JSON.stringify(contact));
+  const request = new XMLHttpRequest();
+  request.open("POST", "http://localhost:3000/api/cameras/order");
+  request.setRequestHeader("Content-type", "application/json");
+  request.send(JSON.stringify(informations));
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 201) {
+      let response = JSON.parse(request.response);
+      let orderId = response.orderId;
+
+      localStorage.clear();
+      localStorage.setItem("prixTotal", total.toFixed(2));
+      localStorage.setItem("numeroDeCommande", orderId);
+      window.location = "./orderConfirmation.html";
+    } else {
+      console.log(request.status);
+    }
+  };
+}
+//Ecoute de l'évenement soumission du formulaire de commande
+formHtml.addEventListener("submit", function (e) {
+  e.preventDefault();
+  orderPost();
+});
