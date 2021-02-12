@@ -30,7 +30,7 @@ function ready() {
     let button = removeCartItemButtons[i];
     button.addEventListener("click", ProductRemoveStorageCart);
   }
-
+  //update de la quantité
   for (let i = 0; i < quantityInputs.length; i++) {
     let input = quantityInputs[i];
     input.addEventListener("change", quantityChanged);
@@ -96,13 +96,15 @@ function allStorageCart() {
 allStorageCart();
 
 //Total cart
-
 let total = 0;
-for (let i = 0; i < subtotalElementHtml.length; i++) {
-  total += parseInt(subtotalElementHtml[i].innerHTML);
-}
+const totalCart = () => {
+  for (let i = 0; i < subtotalElementHtml.length; i++) {
+    total += parseInt(subtotalElementHtml[i].innerHTML);
+  }
 
-totalElementHtml.innerHTML = total.toFixed(2);
+  totalElementHtml.innerHTML = total.toFixed(2);
+};
+totalCart();
 //Définision des tableaux et objets
 let contact = {};
 let productArr = [];

@@ -5,18 +5,16 @@ const cartSubtotalHtmlElement = document.getElementById("table__subtotal");
 let productLocalStorage = allStorage();
 
 //Cart
+const cart = () => {
+  if (!productLocalStorage) {
+    cartHtmlElement.innerHTML = "<h1>Votre panier est vide</h1>";
+    console.log("No product");
+  } else {
+    let result = "";
+    productLocalStorage.forEach(function (item) {
+      let productSubtotal = (item.productPrice / 100) * item.quantity;
 
-if (!productLocalStorage) {
-  cartHtmlElement.innerHTML = "<h1>Votre panier est vide</h1>";
-  console.log("No product");
-} else {
-  //Cart Data
-
-  let result = "";
-  productLocalStorage.forEach(function (item) {
-    let productSubtotal = (item.productPrice / 100) * item.quantity;
-
-    result += `
+      result += `
             <tr>
               <td>
                 <div class="cart-info">
@@ -39,12 +37,16 @@ if (!productLocalStorage) {
               }</p></td>
               </tr>         
                 `;
-    return productSubtotal;
-  });
+      return productSubtotal;
+    });
 
-  cartHtmlElement.innerHTML = result;
-  const productSubtotalHtmlElement = document.querySelector(".cart__subtotal");
-}
+    cartHtmlElement.innerHTML = result;
+    const productSubtotalHtmlElement = document.querySelector(
+      ".cart__subtotal"
+    );
+  }
+};
+cart();
 
 //Get all localstorage
 function allStorage() {

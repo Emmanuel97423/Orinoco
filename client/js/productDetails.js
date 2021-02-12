@@ -95,7 +95,7 @@ const productDetails = () => {
               productImage: response.imageUrl,
               productPrice: response.price,
               productDescription: response.description,
-              quantity: productQuantityStorage++,
+              quantity: (productQuantityStorage += 1),
               productLenses: selectElementHtml.value,
             };
             const localStorageIdProduct = id + selectElementHtml.value;
