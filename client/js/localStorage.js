@@ -21,7 +21,7 @@ const cart = () => {
                   <img src="${item.productImage}" width="200" />
                   <div>
                     <p>${item.productName}</p>
-                    <small>Lentille: </small><br />
+                    <small>Lentille: ${item.productLenses}</small><br />
                     <small>Prix: ${(item.productPrice / 100).toFixed(
                       2
                     )} €</small><br />
@@ -31,7 +31,7 @@ const cart = () => {
               </td>
               <td><input class="cart-quantity-input" type="number" value="${
                 item.quantity
-              }" /></td>
+              }" disabled/></td>
               <td> <p class="cart__subtotal">${
                 productSubtotal.toFixed(2) + " €"
               }</p></td>

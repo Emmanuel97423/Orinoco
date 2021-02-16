@@ -1,9 +1,6 @@
 //Listage des produits
 //variables
 const productsDOM = document.querySelector("#product-list__table");
-
-//cart
-let cart = [];
 //Requête pour obtention des données
 class Products {
   async getProducts() {
@@ -14,7 +11,7 @@ class Products {
         headers: {
           "Content-Type": "application/json",
         },
-      });
+      }); //possibilité du catch;
       let data = await result.json();
       let products = data.map((product) => {
         const { name, description, price, lenses, _id, imageUrl } = product;
@@ -54,9 +51,6 @@ class UI {
     productsDOM.innerHTML = result;
   }
 }
-//stockage des donnees
-class Storage {}
-
 document.addEventListener("DOMContentLoaded", () => {
   const products = new Products();
   const ui = new UI();

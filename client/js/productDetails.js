@@ -7,6 +7,7 @@ const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get("id");
 
 //Requête AJAX vers l'API
+let productQuantityStorage = [];
 const productDetails = () => {
   const request = new XMLHttpRequest();
   request.open("GET", "http://localhost:3000/api/cameras/" + id);
@@ -71,11 +72,13 @@ const productDetails = () => {
       //Itération du select pour les Lentilles
       const selectElementHtml = document.getElementById("lenses-select");
       const lenses = response.lenses;
+
       for (lense of lenses) {
         let select = document.createElement("option");
         select.value = lense;
         select.innerHTML = lense;
         selectElementHtml.appendChild(select);
+        productQuantityStorage[lense] = 0;
       }
       //CART
       let productStorage = {};
@@ -84,18 +87,18 @@ const productDetails = () => {
 
         //Ecoute du bouton commander
         const btnOrderProductElement = document.getElementById("btn__order");
-        let productQuantityStorage = 0;
+
         if (btnOrderProductElement) {
           btnOrderProductElement.addEventListener("click", function (e) {
-            e.stopPropagation();
-
+            e.preventDefault();
+            productQuantityStorage[selectElementHtml.value] += 1;
             productStorage = {
               productId: id,
               productName: response.name,
               productImage: response.imageUrl,
               productPrice: response.price,
               productDescription: response.description,
-              quantity: (productQuantityStorage += 1),
+              quantity: productQuantityStorage[selectElementHtml.value],
               productLenses: selectElementHtml.value,
             };
             const localStorageIdProduct = id + selectElementHtml.value;

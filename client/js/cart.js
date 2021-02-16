@@ -9,13 +9,11 @@ const totalElementHtml = document.getElementById("cart--total");
 const subtotalElementHtml = document.getElementsByClassName("cart__subtotal");
 let quantityInputs = document.getElementsByClassName("cart-quantity-input");
 let cartLocalStorage = allStorage();
-
 if (document.readyState == "loading") {
   document.addEventListener("DOMContentLoaded", ready);
 } else {
   ready();
 }
-
 function ready() {
   let removeCartItemButtons = document.getElementsByClassName(
     "removeCartItemButton"
@@ -36,7 +34,6 @@ function ready() {
     input.addEventListener("change", quantityChanged);
   }
 }
-
 function removeCartItem(event) {
   let buttonClicked = event.target;
   buttonClicked.parentElement.parentElement.parentElement.parentElement.remove();
@@ -47,7 +44,6 @@ function ProductRemoveStorageCart() {
     keys = Object.keys(localStorage),
     i = 0,
     key;
-
   for (; (key = keys[i]); i++) {
     localStorage.removeItem(key);
   }
@@ -61,25 +57,6 @@ function quantityChanged(event) {
   }
   updateCartTotal();
 }
-
-/*function updateCartTotal() {
-  let cartItemContainer = document.getElementsByClassName("cart-items")[0];
-  let cartRows = cartItemContainer.getElementsByClassName("cart-row");
-  let total = 0;
-  for (let i = 0; i < cartRows.length; i++) {
-    let cartRow = cartRows[i];
-    let priceElement = cartRow.getElementsByClassName("cart-price")[0];
-    let quantityElement = cartRow.getElementsByClassName(
-      "cart-quantity-input"
-    )[0];
-    let price = parseFloat(priceElement.innerText.replace("$", ""));
-    let quantity = quantityElement.value;
-    total = total + price * quantity;
-  }
-  total = Math.round(total * 100) / 100;
-  document.getElementsByClassName("cart-total-price")[0].innerText =
-    "$" + total;
-}*/
 
 function allStorageCart() {
   var archive = [],
